@@ -1,0 +1,51 @@
+
+generator client {
+provider = "prisma-client-js"
+}
+datasource db {
+provider = "postgresql"
+url = env("DATABASE_URL")
+directUrl = env("DIRECT_URL")
+}
+
+model User {
+id String @id @default(cuid())
+email String @unique
+name String?
+password String // bcrypt hashed
+connections Connection[]
+queries Query[]
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+}
+model Connection {
+id String @id @default(cuid())
+userId String
+user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+name String
+type String 
+host String
+port Int
+database String
+username String
+encryptedPassword String // encrypted with crypto-js
+isActive Boolean @default(true)
+metadata Json? // cached schema structure
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+@@index([userId])
+}
+model Query {
+id String @id @default(cuid())
+userId String
+user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+name String? // optional user-provided name
+visualConfig Json // React Flow nodes and edges
+generatedSQL String @db.Text
+executionTime Int? // milliseconds
+rowsReturned Int?
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+@@index([userId])
+@@index([createdAt])
+}

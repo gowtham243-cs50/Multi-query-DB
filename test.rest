@@ -1,0 +1,28 @@
+### Test MySQL user
+
+GET http://localhost:3000/api/schema?connectionId=cmk9h7opc0001k4j424yq610s
+Content-Type: application/json
+Cookie: next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..aUBLpdzb85bF1ZxT.xKSB44TTOjefMJ5gYR5uJ0hdHBb7Aa1J_W0AmdLWYfbucZoldgaqirUCfQg-tXShzTSixIzHnyi6co3ZYbNEgIaqe1dKLU1ltYgu8nJbCUHUfF4dwbin8FfYNbv2tM97c5OJsN8p5gXq5y2GGh99PPo-zLZW0zwDoojJgW0ZUKG7jm9-nChHpMydXNslMjYQcc1hjL6-5azdsdZeHzZBb_nIAW0-NSQmVex-qWXfVukBZvghXavqzyzw-ZUZS7r_.SAiQvqC-GwgzI4pSra-fTw;
+
+
+POST http://localhost:3000/api/connections
+Content-Type: application/json
+Cookie: next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..aUBLpdzb85bF1ZxT.xKSB44TTOjefMJ5gYR5uJ0hdHBb7Aa1J_W0AmdLWYfbucZoldgaqirUCfQg-tXShzTSixIzHnyi6co3ZYbNEgIaqe1dKLU1ltYgu8nJbCUHUfF4dwbin8FfYNbv2tM97c5OJsN8p5gXq5y2GGh99PPo-zLZW0zwDoojJgW0ZUKG7jm9-nChHpMydXNslMjYQcc1hjL6-5azdsdZeHzZBb_nIAW0-NSQmVex-qWXfVukBZvghXavqzyzw-ZUZS7r_.SAiQvqC-GwgzI4pSra-fTw;
+
+{
+  "type":"mysql",
+  "host": "0.0.0.0",
+  "port": 3306,
+  "user": "testing_user",
+  "password": "Leomessi@101",
+  "database": "test"
+}
+
+# POST http://localhost:3000/auth/register 
+# Content-Type: application/json
+
+# {
+#   "email": "user@example.com",
+#   "name": "John Doe",
+#   "password": "yoursecurepassword"
+# }
