@@ -72,7 +72,7 @@ export default function Dashboard({
     isAuthenticated,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const [selectedConnectionId, setSelectedConnectionId] = useState<string | null>(null);
-
+    const selectedConnection = connections.find(c => c.id === selectedConnectionId);
     return (
         <div className="min-h-screen bg-zinc-50 text-zinc-900">
             <div className="flex min-h-screen">
@@ -160,7 +160,7 @@ export default function Dashboard({
                                         <p className="mt-1 text-xs text-zinc-500">Browse tables and run queries for the selected connection.</p>
                                     </div>
                                     <div className="px-2 pb-4">
-                                        <SchemaExplorer connectionId={selectedConnectionId} />
+                                        <SchemaExplorer connectionId={selectedConnectionId} dbType={selectedConnection?.type || 'unknown'} />
                                     </div>
                                 </div>
                             </div>

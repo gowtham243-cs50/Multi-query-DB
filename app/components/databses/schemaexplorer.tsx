@@ -5,10 +5,12 @@ import { ChevronRight, ChevronDown, Database, Table as TableIcon, Columns, Key }
 
 export default function SchemaExplorer({
     connectionId,
+    dbType,
 }: {
     connectionId: string;
+    dbType: string;
 }) {
-    console.log("SchemaExplorer Rendered with ID:", connectionId);
+    console.log("SchemaExplorer Rendered with ID:", connectionId, "dbType:", dbType);
 
     const [schema, setSchema] = useState<Record<string, any[] | any> | null>(null);
     const [expandedTables, setExpandedTables] = useState<Record<string, boolean>>({});
@@ -60,12 +62,6 @@ export default function SchemaExplorer({
         }));
     };
 
-    // const handleDragstart = (e:React.DragEvent<HTMLDivElement>) =>{
-    //     console.log("Drag started");
-    //     e.dataTransfer.setData()
-
-    // }
-
     return (
         <div className="h-full border-r border-zinc-200 bg-zinc-50 flex flex-col w-64">
             <div className="p-4 border-b border-zinc-200 flex items-center gap-2">
@@ -98,7 +94,7 @@ export default function SchemaExplorer({
                                         e.dataTransfer.setData("text/plain", tableName);
                                         e.dataTransfer.setData(
                                             "application/json",
-                                            JSON.stringify({ tableName,columns })
+                                            JSON.stringify({ tableName, columns, dbType }) // <-- add dbType here
                                         );
                                         e.dataTransfer.effectAllowed = "copyMove";
                                     }}

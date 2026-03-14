@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Handle, Position, NodeProps,Node } from '@xyflow/react';
 
 interface Column {
@@ -11,11 +11,21 @@ isPrimaryKey: boolean;
 type TableNodeData = {
   label: string;
   column:Column[];
+  selectedColumns:string[];
+  onColumnsChange?: (nodeId: string, selectedCols: string[]) => void;
 };
 
-const TableNode = ({ data, isConnectable }: NodeProps<Node<TableNodeData>>) => {
+
+const TableNode = ({id,data, isConnectable }: NodeProps<Node<TableNodeData>>) => {
   const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
   const [isExpanded, setIsExpanded] = useState(true);
+
+  useEffect(() =>{
+    if (data.onColumnsChange){
+      data.onColumnsChange(id, selectedColumns);
+    }
+  },[selectedColumns,id,data.onColumnsChange])
+
 
   const handleColumnToggle = (colName: string) => {
     setSelectedColumns((prev) => 
@@ -98,12 +108,15 @@ const TableNode = ({ data, isConnectable }: NodeProps<Node<TableNodeData>>) => {
       <Handle
         type="target"
         position={Position.Right}
+        style={{ zIndex: 100 }} 
+
         className="w-3 h-3 !bg-teal-500 border-2 border-white shadow-sm"
         isConnectable={isConnectable}
       />
       <Handle
         type="source"
         position={Position.Left}
+        style={{ zIndex: 100 }} 
         className="w-3 h-3 !bg-teal-500 border-2 border-white shadow-sm"
         isConnectable={isConnectable}
       />
